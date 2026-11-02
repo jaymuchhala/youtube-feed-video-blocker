@@ -2,7 +2,7 @@
 
 Hide thumbnails, hover previews, Shorts shelves and post images in your YouTube feeds, and fold away the comments under a video when you want to. Click the eye button on a video to reveal its thumbnail, or the scroll button next to "Sort by" to hide or show the comments, so you stay conscious of what you're consuming.
 
-A YouTube port of the [Reddit port](https://github.com/jaymuchhala/reddit-feed-video-blocker) of [xtension](https://github.com/adxy/xtension) (X/Twitter Feed Video/Image Blocker).
+A YouTube port of [xtension](https://github.com/adxy/xtension) (X/Twitter Feed Video/Image Blocker).
 
 ### Install (Chromium browsers)
 - Open `chrome://extensions` (or your Chromium-based browser's extensions page)
