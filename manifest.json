@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Feed Video/Image Blocker for YouTube",
+  "version": "1.0.0",
+  "description": "Hide thumbnails, hover previews, Shorts shelves and post images in your YouTube feeds behind a click-to-reveal button, while keeping titles and text visible.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://youtube.com/*",
+        "https://m.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

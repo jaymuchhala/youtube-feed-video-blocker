@@ -1,0 +1,118 @@
+/* Media is hidden by CSS alone, so it never flashes on screen before content.js
+   runs. Revealing an item just sets data-yfvb-revealed on it.
+
+   Each feed item (grid card, search result, sidebar entry, Short, post) is one of
+   these elements, on www.youtube.com and m.youtube.com. Thumbnails, the inline
+   preview player that m.youtube.com moves into the item, and post images are
+   hidden inside it. .yfvb-media is the thumbnail's wrapper (link, frame), which
+   content.js marks so its box collapses too. */
+:is(
+  yt-lockup-view-model, ytm-shorts-lockup-view-model,
+  ytd-video-renderer, ytd-rich-grid-media, ytd-compact-video-renderer, ytd-grid-video-renderer,
+  ytd-playlist-renderer, ytd-compact-playlist-renderer, ytd-radio-renderer, ytd-compact-radio-renderer,
+  ytd-playlist-video-renderer, ytd-playlist-panel-video-renderer, ytd-reel-item-renderer,
+  ytd-backstage-post-renderer, ytd-post-renderer,
+  ytm-video-with-context-renderer, ytm-compact-video-renderer, ytm-compact-playlist-renderer,
+  ytm-playlist-video-renderer, ytm-backstage-post-renderer, ytm-post-renderer
+):not([data-yfvb-revealed]) :is(
+  ytd-thumbnail, ytd-playlist-thumbnail, yt-thumbnail-view-model, yt-collection-thumbnail-view-model,
+  ytm-thumbnail-cover, ytm-playlist-thumbnail, #video-preview-portal, ytm-video-preview,
+  ytd-backstage-image-renderer, ytd-post-multi-image-renderer,
+  ytm-backstage-image-renderer, ytm-post-multi-image-renderer,
+  ytd-backstage-poll-renderer img, ytm-backstage-poll-renderer img,
+  .yfvb-media
+) {
+  display: none !important;
+}
+
+/* Shorts shelves are removed outright: a Short is nothing but video. Search and
+   m.youtube.com use a grid shelf of Shorts lockups; home and channel pages use a
+   rich shelf flagged is-shorts, wrapped in a section that keeps its margins. */
+ytd-reel-shelf-renderer,
+ytm-reel-shelf-renderer,
+ytd-rich-shelf-renderer[is-shorts],
+ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+ytm-rich-section-renderer:has(ytm-reel-shelf-renderer, ytm-shorts-lockup-view-model),
+grid-shelf-view-model:has(ytm-shorts-lockup-view-model) {
+  display: none !important;
+}
+
+/* Watch-page comments show as usual until the scroll button in their header
+   hides them. The header (count, sort, button) stays; the add-comment box,
+   the threads and the load-more trigger go, so nothing more loads meanwhile. */
+ytd-comments[data-yfvb-hidden] #sections > :is(#contents, #continuations),
+ytd-comments[data-yfvb-hidden] ytd-comments-header-renderer #simple-box {
+  display: none !important;
+}
+
+/* Sizes are in px: YouTube sets the root font size to 10px. Colours use
+   YouTube's current theme variables (light and dark), then the older names. */
+.yfvb-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: var(--yt-sys-color-baseline--text-secondary, var(--yt-spec-text-secondary, #606060));
+  width: 36px;
+  height: 36px;
+  min-width: 0;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  /* Cards lay touch-feedback and link overlays over themselves, and a lockup's
+     hover ⋮ sits on a z-index 1 disc that reaches 6px past it; stay on top. */
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.yfvb-btn:hover {
+  color: var(--yt-sys-color-baseline--text-primary, var(--yt-spec-text-primary, #0f0f0f));
+  background-color: var(--yt-sys-color-baseline--tonal-background, var(--yt-spec-10-percent-layer, rgba(0, 0, 0, 0.1)));
+}
+
+.yfvb-btn:focus-visible {
+  outline: 2px solid var(--yt-sys-color-baseline--call-to-action, var(--yt-spec-call-to-action, #065fd4));
+  outline-offset: 1px;
+}
+
+.yfvb-btn.content-visible {
+  color: #ff0033;
+}
+
+.yfvb-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.yfvb-btn:active svg {
+  transform: scale(0.9);
+}
+
+/* Lockup metadata is a row of avatar, text and ⋮; the text doesn't stretch,
+   so push the eye (and the ⋮ after it) to the right edge. */
+yt-lockup-metadata-view-model > .yfvb-btn {
+  margin-left: auto;
+}
+
+/* The comments button sits at the right edge of the header row: the section
+   holding "Sort by" stretches, and the button takes the space left over. */
+ytd-comments-header-renderer #additional-section:has(> .yfvb-comments-btn) {
+  flex: 1 1 auto;
+}
+
+.yfvb-btn.yfvb-comments-btn {
+  margin-left: auto;
+}
+
+/* The scroll is struck through while comments are hidden, like the eye. */
+.yfvb-comments-btn:not(.content-visible) .yfvb-slash {
+  display: none;
+}
