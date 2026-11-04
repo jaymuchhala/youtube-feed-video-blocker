@@ -102,6 +102,12 @@ yt-lockup-metadata-view-model > .yfvb-btn {
   margin-left: auto;
 }
 
+/* Search results: the ⋮ takes only 24px of the title row. Do the same, so the
+   eye doesn't push the details below a one-line title further down. */
+#title-wrapper > .yfvb-btn {
+  margin-block: -6px;
+}
+
 /* The comments button sits at the right edge of the header row: the section
    holding "Sort by" stretches, and the button takes the space left over. */
 ytd-comments-header-renderer #additional-section:has(> .yfvb-comments-btn) {

@@ -226,9 +226,11 @@ function placeButton(item, button) {
 // corner (the sidebar's only appears on hover), so they take no room in the
 // row and would cover the eye. Keep the menu's width clear to the eye's right
 // (less a few px, so the two hover circles sit close without touching) and line
-// it up with the menu's corner, then nudge it so its centre is level with the
-// ⋮ button's. The menu can be placed past the row's edge (10px on the home
-// grid), so the gap is measured from where it really is, not just its width.
+// it up with the menu's corner. The menu can be placed past the row's edge (10px
+// on the home grid), so the gap is measured from where it really is, not just
+// its width. Any menu, floating or not, then gets the eye nudged so its centre
+// is level with the ⋮ button's: on search results the ⋮ stays in the row but
+// pokes 11px above its 24px box, so top-aligning them leaves the eye 9px low.
 const FLOATING_MENU_OVERLAP = 6;
 
 function besideFloatingMenu(button, menu) {
@@ -248,7 +250,7 @@ function besideFloatingMenu(button, menu) {
   if (button.style.marginRight !== gap) button.style.marginRight = gap;
 
   let shift = '';
-  if (floating && target.height) {
+  if (target.height) {
     const own = button.getBoundingClientRect();
     const current = parseFloat(button.style.translate.split(' ')[1]) || 0;
     const offset = Math.round(target.top + target.height / 2 - (own.top - current + own.height / 2));
