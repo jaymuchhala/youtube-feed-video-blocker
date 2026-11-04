@@ -108,6 +108,46 @@ yt-lockup-metadata-view-model > .yfvb-btn {
   margin-block: -6px;
 }
 
+/* The circle works like the search ⋮'s (yt-interaction): 40px across, nothing on
+   hover, a 10% fill the moment it's pressed. On release the fill fades out while
+   a thin ring appears at 20% and fades out a little more slowly. The ring holds
+   its 20% during the press with a transparent border, so it shows only on release. */
+#title-wrapper > .yfvb-btn:hover {
+  background-color: transparent;
+}
+
+#title-wrapper > .yfvb-btn::before,
+#title-wrapper > .yfvb-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#title-wrapper > .yfvb-btn::before {
+  background-color: var(--yt-sys-color-baseline--text-primary, var(--yt-spec-text-primary, #0f0f0f));
+  transition: opacity 0.35s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+#title-wrapper > .yfvb-btn::after {
+  border: 1px solid var(--yt-sys-color-baseline--text-primary, var(--yt-spec-text-primary, #0f0f0f));
+  transition: opacity 0.4s ease-in-out;
+}
+
+#title-wrapper > .yfvb-btn:active::before {
+  opacity: 0.1;
+  transition: none;
+}
+
+#title-wrapper > .yfvb-btn:active::after {
+  opacity: 0.2;
+  border-color: transparent;
+  transition: none;
+}
+
 /* The comments button sits at the right edge of the header row: the section
    holding "Sort by" stretches, and the button takes the space left over. */
 ytd-comments-header-renderer #additional-section:has(> .yfvb-comments-btn) {
