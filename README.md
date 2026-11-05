@@ -1,6 +1,6 @@
 ## Feed Video/Image Blocker for YouTube
 
-Hide thumbnails, hover previews, Shorts shelves and post images in your YouTube feeds, and fold away the comments under a video when you want to. Click the eye button on a video to reveal its thumbnail, or the scroll button next to "Sort by" to hide or show the comments, so you stay conscious of what you're consuming.
+Hide thumbnails, hover previews, Shorts shelves and post images in your YouTube feeds, and keep the comments under a video folded away until you want them. Click the eye button on a video to reveal its thumbnail, or the scroll button next to "Sort by" to show or hide the comments, so you stay conscious of what you're consuming.
 
 A YouTube port of [xtension](https://github.com/adxy/xtension) (X/Twitter Feed Video/Image Blocker).
 
@@ -15,7 +15,7 @@ A YouTube port of [xtension](https://github.com/adxy/xtension) (X/Twitter Feed V
 - Thumbnails are hidden on home, subscriptions, search, channel pages, posts and the watch-page sidebar; titles, channels and view counts stay visible
 - Shorts shelves are removed
 - Click the eye before a video's ⋮ menu to show its thumbnail, and again to hide it (re-hiding pauses any preview)
-- On a video's page, click the scroll next to "Sort by" to hide the comments, and again to show them
+- On a video's page, comments start hidden: click the scroll next to "Sort by" to show them, and again to hide them
 
 ### Notes
 - No data leaves your browser; there are no network requests and no install-time permission warnings
