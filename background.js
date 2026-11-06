@@ -1,9 +1,26 @@
 // Show the welcome page once, on first install. Updates stay silent.
 chrome.runtime.onInstalled.addListener(({ reason }) => {
+  setTimeout(injectIntoOpenTabs, 3000);
   if (reason === chrome.runtime.OnInstalledReason.INSTALL) {
     chrome.tabs.create({ url: chrome.runtime.getURL('welcome/welcome.html') });
   }
 });
+
+// Chrome doesn't put a new version's content scripts into tabs that are already
+// open, and the old copy is cut off (content.js notices and steps aside), so
+// inject the new version: open YouTube tabs keep working without a refresh. The
+// CSS goes in too, since Chrome drops the old copy's stylesheet with it.
+async function injectIntoOpenTabs() {
+  const scripts = chrome.runtime.getManifest().content_scripts || [];
+  for (const cs of scripts) {
+    for (const tab of await chrome.tabs.query({ url: cs.matches })) {
+      if (tab.discarded) continue;
+      const target = { tabId: tab.id };
+      if (cs.css) chrome.scripting.insertCSS({ target, files: cs.css }).catch(() => {});
+      if (cs.js) chrome.scripting.executeScript({ target, files: cs.js }).catch(() => {});
+    }
+  }
+}
 
 // Development: when loaded unpacked (no update_url), reload when build.txt changes,
 // so edits on disk take effect without a trip to chrome://extensions. Each page load
