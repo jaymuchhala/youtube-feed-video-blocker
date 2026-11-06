@@ -15,7 +15,7 @@ A YouTube port of [xtension](https://github.com/adxy/xtension) (X/Twitter Feed V
 - Thumbnails are hidden on home, subscriptions, search, channel pages, posts and the watch-page sidebar; titles, channels and view counts stay visible
 - Shorts shelves are removed
 - Click the eye before a video's ⋮ menu to show its thumbnail, and again to hide it (re-hiding pauses any preview)
-- On a video's page, comments start hidden: click the scroll next to "Sort by" to show them, and again to hide them
+- On a video's page, comments show as usual: click the scroll next to "Sort by" to hide them, and again to show them
 
 ### Notes
 - No data leaves your browser; there are no network requests and no install-time permission warnings

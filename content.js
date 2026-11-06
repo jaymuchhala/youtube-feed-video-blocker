@@ -278,25 +278,25 @@ function processItem(item) {
 
 /* ---------- Watch-page comments ---------- */
 
-// The comment section stays hidden until the scroll button opens it. Like
-// items, the <ytd-comments> element is reused for the next video, and opening
-// is tied to the video it was done on.
+// The comment section shows until the scroll button hides it. Like items, the
+// <ytd-comments> element is reused for the next video, and hiding is tied to
+// the video it was done on.
 function videoKey() {
   return new URLSearchParams(location.search).get('v') || location.pathname;
 }
 
-// Grey while comments are hidden (the default), red and struck through while
-// the button has them open.
+// Struck through while comments show (the default), plain while the button has
+// them hidden. Both in the button's normal colour, not the eye's red.
 function setCommentsIcon(button, shown) {
-  button.classList.toggle('content-visible', shown);
+  button.classList.toggle('yfvb-comments-hidden', !shown);
   button.setAttribute('aria-pressed', String(shown));
   button.setAttribute('aria-label', shown ? 'Hide comments' : 'Show comments');
   button.title = shown ? 'Hide comments' : 'Show comments';
 }
 
 function processComments(comments) {
-  const shownFor = comments.getAttribute('data-yfvb-shown');
-  if (shownFor !== null && shownFor !== videoKey()) comments.removeAttribute('data-yfvb-shown');
+  const hiddenFor = comments.getAttribute('data-yfvb-hidden');
+  if (hiddenFor !== null && hiddenFor !== videoKey()) comments.removeAttribute('data-yfvb-hidden');
 
   // The header row is rebuilt as comments load; place after "Sort by" each
   // pass. content.css pushes it to the row's right edge.
@@ -306,14 +306,14 @@ function processComments(comments) {
   comments.querySelectorAll('.yfvb-comments-btn').forEach((b) => { if (b !== button) b.remove(); });
   if (!button) {
     button = createButton(() => {
-      const shown = !comments.hasAttribute('data-yfvb-shown');
-      if (shown) comments.setAttribute('data-yfvb-shown', videoKey());
-      else comments.removeAttribute('data-yfvb-shown');
+      const shown = comments.hasAttribute('data-yfvb-hidden');
+      if (shown) comments.removeAttribute('data-yfvb-hidden');
+      else comments.setAttribute('data-yfvb-hidden', videoKey());
       setCommentsIcon(button, shown);
     }, scrollIcon());
     button.classList.add('yfvb-comments-btn');
   }
-  setCommentsIcon(button, comments.hasAttribute('data-yfvb-shown'));
+  setCommentsIcon(button, !comments.hasAttribute('data-yfvb-hidden'));
   if (button.previousElementSibling !== sort) sort.insertAdjacentElement('afterend', button);
 }
 

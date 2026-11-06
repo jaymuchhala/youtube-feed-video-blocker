@@ -37,13 +37,13 @@ grid-shelf-view-model:has(ytm-shorts-lockup-view-model) {
   display: none !important;
 }
 
-/* Watch-page comments stay hidden until the scroll button in their header opens
+/* Watch-page comments show until the scroll button in their header hides
    them. The header (count, sort, button) stays; the add-comment box, the threads
    and the load-more trigger go, so nothing more loads meanwhile. #contents only
    goes once it holds threads: before that it holds the trigger for the first
    batch, which brings the header (and so the button) with it. */
-ytd-comments:not([data-yfvb-shown]) #sections > #contents:has(> ytd-comment-thread-renderer),
-ytd-comments:not([data-yfvb-shown]) ytd-comments-header-renderer #simple-box {
+ytd-comments[data-yfvb-hidden] #sections > #contents:has(> ytd-comment-thread-renderer),
+ytd-comments[data-yfvb-hidden] ytd-comments-header-renderer #simple-box {
   display: none !important;
 }
 
@@ -160,7 +160,8 @@ ytd-comments-header-renderer #additional-section:has(> .yfvb-comments-btn) {
   margin-left: auto;
 }
 
-/* The scroll is struck through while comments are open. */
-.yfvb-comments-btn:not(.content-visible) .yfvb-slash {
+/* The scroll is struck through while comments show (click to hide). Both
+   states keep the button's normal colour. */
+.yfvb-comments-btn.yfvb-comments-hidden .yfvb-slash {
   display: none;
 }
